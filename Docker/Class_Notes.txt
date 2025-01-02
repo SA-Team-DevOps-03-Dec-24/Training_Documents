@@ -1,0 +1,172 @@
+
+########################
+Day 16 : 31st Dec. 2024
+########################
+
+
+	Containerization using Docker!
+	
+	
+	Containerization :::
+	
+		--> Containerization is a process of packaging the Application along with its dependencies.
+		
+		Jenkins was installed in EC2 Instance! - VM.
+		
+		Virtual Machine :::
+		
+			- VMs are called as Hardware Level Virtualization 
+			- VMs are Created using Hypervisor 
+			- VMs are used to run the Operating System 
+			- VMs will continue to run even if there is no Active Tasks/Applications
+			- VMs Consume More Space and Time to start and run the Applications/Tasks
+		
+		
+		Container :::
+	
+			- Containers are called as OS Level Virtualization 
+			- Containers are Created using Container Engine  
+			- Containers are Not used to run the Operating System 
+			- Containers will immediately go to exit state if there is no Active Tasks/Applications
+			- Containers Consume less Space and Time to start and run the Applications/Tasks
+			
+			- Containers runs in its own dedicated address space. 
+			
+			- Containers are used to reduce the no. of VMs.
+			
+		
+		
+		Uses Cases :::
+		
+		- Infra-Structure Perspective :
+		
+		
+            Jenkins_Master Node(VM)		- Create the CI/CD Pipeline Projects and schedule to run in slave nodes.
+			
+				Jenkins_Slave_Node1(VM)		- Java Application Build maven
+				Jenkins_Slave_Node1.1(VM)	- Java Application Build maven
+				Jenkins_Slave_Node2(VM)		- Python Application Build
+				Jenkins_Slave_Node3(VM)		- .Net Application Build
+				Jenkins_Slave_Node4(VM)		- Ruby Application Build
+				Jenkins_Slave_Node5(VM)		- Angular/NodeJS Application Build
+		
+		
+		
+			Containerization :::
+
+				Jenkins_Master Node(VM)		- Create the CI/CD Pipeline Projects and schedule to run in slave nodes.
+					
+					Jenkins_Slave_Node1	(VM) 
+						Install Docker Container-Engine
+							C1 	- Java Application Build maven
+							C2  - Java Application Build maven
+							C3  - Python Application Build
+							C4  - .Net Application Build
+							C5  - Ruby Application Build
+							C6  - Angular/NodeJS Application Build
+			
+		
+		- Developers'/Deployment Perspective :
+		
+			--> Containerization is a process of packaging the Application along with its dependencies.
+			
+	Environments :
+													
+		
+			Dev Environment	(VM)
+				- Create Source Codes	
+			
+			Build Environment (VM)
+				- Build Application Artifacts 		===> mywebappsvc1_v1.0.war
+				
+				- Unit Test the Application 
+				
+					- Using jdk17 & tomcat8.5  - mywebappsvc1.war has been tested successfully.
+					
+				- Package the Applications along with its depedencies :
+				
+				- Package is also called an Container Image.
+				
+					(mywebappsvc1.war,jdk17,tomcat8.5)	-->  mywebappsvc1-img_v1.0 
+					
+				- Publish the Application Image to the Container Registry 
+					mywebappsvc1-img_v1.0
+					
+				- Promote the mywebappsvc1.war to Target Server 
+				
+				
+			Testing Environment (VM)
+			
+				- QA (VM) - Quality Assurance Testing 	
+				
+					Download the Application Image mywebappsvc1-img_v1.0 from Container Registry and Create Container out of it to run the application.
+					
+				
+				- UAT (VM) - User Acceptace Testing				
+			
+					Download the Application Image mywebappsvc1-img_v1.0 from Container Registry and Create Container out of it to run the application.	
+					
+					
+	Working with Docker :
+	
+		Docker Container Engine and its Architecture 
+		
+		Architecture Components/Terminologies :::
+		
+			- Docker Container-Engine :
+					--> Used to create and Manage the Container Images and Containers
+					
+			- Container Image :
+			
+					--> Container Images are just a static file that defines the properties and the depedencies.
+					--> Container Images are Non-Executable.
+					--> It composed of various layers create based on the Dockerfile Instructions.
+					
+			- Containers :
+					--> Containers are the executable unit of Container Images.
+					--> Containers are used to run the applications defined in the Container Images.
+					
+			- Container Registry :
+					--> It used to version control/Store and manage the Container Images.
+					--> Docker Hub is the Container Registry to be used.
+						https://hub.docker.com/
+						
+						DockerHub CE 
+						DockerHub EE 
+						
+			- Container Repository :
+					--> Container Repositories are the subset of Container Registry
+					
+						github 			Docker-Hub_Registry
+							repo1			Docker-hub_Repository1
+							repo2			Docker-hub_Repository2		
+								
+			- Docker Cli Command :
+					--> Used to interact with Docker Engine.
+		
+
+		
+		Install Docker Container Engine
+				https://docs.docker.com/engine/install/
+
+			Goto the Jenkins Slave Node & install Docker using :
+						
+					sudo apt install docker.io -y
+					
+					docker --version 
+		
+		
+		Docker CLI Commands :::
+	
+			docker --version 			# Get the docker version 
+			
+			docker images 				# Get the list of Container Images in local machine 
+			
+			docker ps 					# Get the list of Active/Running Containers in local machine 
+			
+			docker ps -a 				# Get the list of Active/Running as well as the InActive/Stopped Containers in local machine 
+			
+Next ::
+
+		Continue with the Docker Cli Commands!
+			
