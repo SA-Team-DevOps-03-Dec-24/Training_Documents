@@ -1,0 +1,257 @@
+
+########################
+Day 19 : 7th Jan. 2025
+########################					
+
+	Kubernetes ::::
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		
+	
+	AWS 	- EKS/ECR/ECS
+	
+	Azure 	- AKS/ACR/ACS
+	
+	GCP 	- GKE/GCR/GCE
+	
+	
+	Kubernetes :::
+	
+		- Open-Source Kubernetes
+		
+		- Kubernetes Architecture
+		
+		- Components/Terminologies of Kubernetes
+		
+		- Kubernetes Concepts 
+		
+			- Pods
+			- Volumes 
+			- Services 
+			
+Related to the Project :::
+			
+	Integrate Kubernetes, Docker with Jenkins
+	Create CICD Pipeline using Jenkins, Docker & Kubernetes
+		
+		
+
+########################
+Day 20 : 8th Jan. 2025
+########################
+
+	Fundamentals of Kubernetes ::::
+	
+		- It is a Open-Source Container Orchestration Tool 
+		- Kubernetes is used to Deploy any type of Containers.
+		- It is used to ensure high availability of the Applications/services running thru Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- It supports Auto-Scaling & Load Balancing.
+		
+	
+	AWS 	- EKS/ECR/ECS
+	
+	Azure 	- AKS/ACR/ACS
+	
+	GCP 	- GKE/GCR/GCE
+	
+	
+	Kubernetes :::
+	
+		- Open-Source Kubernetes
+		
+		- Kubernetes Architecture
+		
+		- Components/Terminologies of Kubernetes
+		
+		- Kubernetes Concepts 
+		
+			- Pods
+			- Volumes 
+			- Services 
+			
+Related to the Project :::
+			
+	Integrate Kubernetes, Docker with Jenkins
+	Create CICD Pipeline using Jenkins, Docker & Kubernetes
+	
+	
+	Kubernetes Architecture :::
+	
+		Kubernetes Master 
+		
+			Kubernetes Worker_Node1,2,3,4,5
+			
+			
+		Environments :
+		
+			Non-Prod Environments 							Prod Environment ( LIVE )
+				
+				DEV 
+				BUILD 
+				Test 
+					QA 
+					UAT 				===========>			Production Server1,2,3,4,5
+											*.war 
+										
+		www.amazon.com ==> This web application is host in the Production Environment
+		
+		
+	Kubernetes Architecture :::
+	
+		Kubernetes Master 
+		
+			Kubernetes Worker_Node1,2,3,4,5	
+			
+	Using Kubeadm 
+	minikube 		# Light-weight version of Kubernetes
+	
+	
+	Kubernetes Architecture & its Components!
+	
+		Kubernetes Components ::::
+
+			API_Server 				--> # Acts as an interface to the kubernetes 
+			
+			ETCD 					--> # Single point of Source for Kubernetes Components 
+			
+			Scheduler				--> # To identify the Healthy Node for Deployments
+			
+			Controller Manager 		--> # To run the pods in its desired state 
+			
+			
+			Kubelet 				--> # Is a Kubernetes Agent used to Create & Deploy the Pods
+			
+			KubeProxy				--> # Is used to enable pod networking by create Pod IP Address			
+			
+			CRI - Container RunTime Interface (Container-D)
+									--> # It is used identify the Image from Container Registry for deployment
+				
+				
+		
+		Kubernetes Concepts / Terminologies ::::
+		
+		
+			Kubernetes_Master			# Used to Create and Schedule the Deployments to Kubernetes_WorkerNodes
+			
+			Kubernetes_WorkNodes		# Target Servers 
+
+			Kubectl 					# Is Command Line Utility, used to interact with Kubernetes Master 
+			
+			
+	Concepts & Terminologies ::::
+	
+		PODS :::	--> Atomic unit of Schedule.
+					--> Smallest unit of Task.
+					-->	Any Task we execute in Kubernetes will be executed as Pod
+					--> Pod runs the container within that.
+		
+		KUBECTL :::	--> Is a Command Line Utility to interract with Kubernetes Master.
+		
+		
+		Kubernetes Cluster ::::
+		
+					--> Kubernetes Cluster is a Collection of Worker Nodes.
+					
+					Kubernetes Master 				1 Master Node.
+					
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+						Kubernetes_WorkNode3
+
+						
+						Auto-Scaling Group -->
+						
+						Replicas of Containers(PODs) 9 Relicas
+						
+				Load Balancer!
+				Kubernetes_Master:::	
+				
+					Kubernetes_Master1 									AWS Cloud 					
+						Cluster1										Region1
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3					
+						Cluster2										Region2
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3						
+						Cluster3										Region3
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3						
+																			
+					Kubernetes_Master2 									AWS Cloud 					
+						Cluster1										Region4
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3					
+						Cluster2										Region5
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3						
+						Cluster3										Region6
+							Kubernetes_WorkNode1
+							Kubernetes_WorkNode2
+							Kubernetes_WorkNode3	
+
+
+Next ::::
+
+	Install and Configure Kubernetes Master Node and Worker Nodes using Kubeadm
+	
+		https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/
+		
+		https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+
+
+########################
+Day 21 : 9th Jan. 2025
+########################		
+
+
+	Install and Configure Kubernetes Master Node and Worker Nodes using Kubeadm
+	
+		https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/
+		
+		https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/		
+		
+		
+	
+		Kubernetes Master 				1 Master Node.
+		
+			Kubernetes_WorkNode1
+			Kubernetes_WorkNode2	
+		
+		
+	Following Commands to be executed in all the Nodes(Master&Worker)
+	
+		1. Launch 3 EC2 Instances - Ubuntu v22.04
+		2. Update Inbound Rule - Security Group
+		3. Set the Host Name 
+		3.1. Disable Swap
+		4. Install Docker 
+		5. Install Container-D (CRI)
+			- Configure Net-Filter Module 
+			- Configure IP6 Table Ref.
+			- Download Container-Package using curl command 
+			- Install Container-D 
+			- Configure Container-D Config.toml file 
+			- Restart Container-D
+		6. Install Kubeadm,Kubectl,Kubelet 
+			- Download using curl command 
+			- Install 
+			- Enable kubelet 
+		
+	Following Commands to be executed only in Master Node		
+		
+		7. kubeadm init 									# To initialize Master Node 
+					
+	Following Commands to be executed in all Worker Nodes
+
+		8. kubeadm join 									# To Attach Worker Nodes to Master Node.

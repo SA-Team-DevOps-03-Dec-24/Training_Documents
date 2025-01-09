@@ -170,3 +170,442 @@ Next ::
 
 		Continue with the Docker Cli Commands!
 			
+	
+########################
+Day 17 : 2nd Jan. 2025
+########################
+
+	Docker CLI Commands :::
+
+		docker --version 			# Get the docker version 
+		
+		docker images 				# Get the list of Container Images in local machine 
+		
+		docker ps 					# Get the list of Active/Running Containers in local machine 
+		
+		docker ps -a 				# Get the list of Active/Running as well as the InActive/Stopped Containers in local machine 
+		
+		docker pull <image_name>	# To Download a Container Image from Container Registry
+		
+		docker run <image_name>		# To create and execute a container based on the image name 
+		
+		
+		Docker Run Command :		# To create and execute a container based on the image name 
+		
+			Modes of Container Execution :		
+			
+				- Foreground/Attached Mode :	
+						# It is default mode of execution
+						# It runs the Container by consuming the terminal.
+						# The Terminal will be released, only when the Container goes to exit state. 
+						
+					Eg.: 
+					
+					docker run <image_name>					
+					docker run centos				
+				
+				- Background/Detached Mode :
+						# The Terminal is accessible while running the container in Background/Detached Mode. 
+				
+					Eg.: 
+					
+					docker run -d <image_name>					
+					docker run -d centos
+				
+				- Interactive Mode :
+				
+						# To Run and Login to the Container						
+						
+					Eg.: 
+
+					docker run -it <image_name>					
+					docker run -it centos 				
+		
+		docker start <container_id>				# Start the Container 		
+		
+		docker exec -it <container_id> bash 	# Login to the running Container 
+			Eg.: 
+			docker exec -it b3eab185c288 bash
+		
+		docker stop <container_id>				# Stop the Running Container 
+		
+		
+		docker rm <container_id>				# Remove the Container from Local Machine 
+		
+		docker rm -f <container_id>				# Force - Remove the Container from Local Machine 
+				docker rm -f <container1_id> <container2_id>
+				
+		docker rmi <image_name>					# Remove the Container Image from Local Machine 
+		
+		docker rmi -f <image_name>				# Force - Remove the Container Image from Local Machine 	
+
+
+		Port Mapping/Binding :::
+		
+			- Port Mapping / Port Binding is used to map the Host Port with the Container Port, to expose the Container applications to internet.
+			
+			Containers are OS level Virtualization,
+				- Namespace and Control Group from the core of OS - Kernel.
+				
+		Jenkins _ Tomcat Server :
+		
+			- Created VM - Enable port 8080 - inbound rule 
+			
+			- Installed JDK, Tomcat 
+			
+			<public_ip_address>:8080
+			
+		
+		Port Mappping ::
+
+				docker run -it tomcat:8.0 bash
+				
+				docker run -it -p 8089:8080 tomcat:8.0
+	
+	
+		-p <host_port>:<container_port>
+
+
+
+########################
+Day 18 : 3rd Jan. 2025
+########################
+
+
+	Docker Images :
+	
+	Create Container Images :
+	
+		- Docker Commit :::
+		
+			- Create a Container Image based on the existing Container Reference
+				
+				Eg.: 
+				
+					docker commit <existing container_id> <Container_Repository_Name>/<New_Container_Image_Name>:<Tag>
+					
+					docker commit 59621ac38cbb loksaieta/sa-javabuildenv-Img:v1.0					
+	
+		
+		- Docker Build :::
+		
+			- To create a new Container Image based on the Dockerfile reference.
+			- Dockerfile composed of Instructions to Create Docker Container Images
+			- Application Developers create the Dockerfile and update in the Source Code Repository. 
+				
+				Eg.: 
+				
+					docker build <Container_Repository_Name>/<New_Container_Image_Name>:<Tag> .		"." Denotes the Dockerfile Reference.
+					
+					Create Dockerfile ::
+
+					vi Dockerfile
+					
+					FROM ubuntu
+					RUN apt update -y 
+					RUN apt install git -y 
+					RUN apt install maven -y 
+					
+			
+					docker build -t loksaieta/sa-javabuildenv-img:v1.2 .			"." Denotes the Dockerfile Reference.	
+
+
+		Write Dockerfile :::
+		
+			Docker File Instructions :::
+			
+			FROM 									# To Identify the Base Image
+			RUN 									# To run the package manager
+			COPY 									# To Copy the file from host volume to container volume
+			CP 										# To Copy the file within the container volumes 
+			ADD 									# To Copy the file from Host Volume as well as from URL
+			ENV 									# To define the Environment Variable 
+			ARG 									# To pass Arguements to the Steps in Dockerfile 
+			EXPOSE									# To Define the Container Port 
+			WORKDIR									# To set the current working directory within the Container 
+			CMD										# To set the default start-up command to the container 
+													  This Command can be changed at run-time.
+			ENTRYPOINT								# To set the default start-up command to the container 
+													  This Command cannot be changed at run-time.	
+			
+			
+		
+		
+		docker history <Image_Name>			# Used to find the Image Layers from Local Machine 
+
+		docker run -it loksaieta/sa-javabuildenv-img:v1.2 bash 	# Create and run a Container based on the new image.
+		
+	
+	Push the Images to Container Registry :::
+	
+		- Login to Container Registry using Docker Cli
+		
+			- Create Access Token in DockerHub 
+			
+			- DockerHub UserName 				docker login -u lkjkhkj
+			- DockerHub Access Token 			jhjvjkjbknknb
+		
+		- Docker Push Command to Push the Image to Container Registry
+		
+			docker push loksaieta/sa-javabuildenv-img:v1.1
+			
+
+
+Assignment :
+
+
+			Use the exiting *.war
+			Eg.: 
+			
+			Dockerfile :::
+			
+			FROM tomcat:8.0
+			COPY ./target/*.war /usr/local/tomcat/webapps
+			EXPOSE 8080			
+
+			docker build -t loksaieta/sa-mywabappsvc-img:v1.0 .
+			
+			docker run -it loksaieta/sa-mywabappsvc-img:v1.0 bash
+			
+			$ ls 
+			$ cd webapps 
+			$ ls 
+			$ exit 
+			
+
+			docker run -it -p 8089:8080 loksaieta/sa-mywabappsvc-img:v1.0
+
+
+
+	3 - Tier Application: 
+	
+	Sign_In Page :
+	
+	
+		- Front-End Layer 	# User-Interface
+		- Application Layer # Business Logics 
+		- Back-End Layer  	# DataBase
+
+		
+		
+ 12  docker images
+   13  docker ps -a
+   14  clear
+   15  docker ps -a
+   16  docker ps
+   17  docker rm 2aa7a0ddda62 fb3b454ad1de ca68336ffe61 d7c145d62322 f0e7c937424c 1447823d6a39 b3eab185c288 1a055990cd3f
+   18  docker ps
+   19  docker ps -a
+   20  docker rm cc17e999e5fd 4dba471ced1b
+   21  clear
+   22  docker ps -a
+   23  docker start 59621ac38cbb
+   24  docker ps
+   25  docker exec -it 59621ac38cbb bash
+   26  docker ps
+   27  docker exec -it 59621ac38cbb bash
+   28  docker stop 59621ac38cbb
+   29  docker ps -a
+   30  docker images
+   31  clear
+   32  docker images
+   33  docker commit 59621ac38cbb loksaieta/sa-javabuildenv-Img:v1.0
+   34  docker commit 59621ac38cbb loksaieta/sa-javabuildenv-img:v1.0
+   35  docker images
+   36  docker run -it loksaieta/sa-javabuildenv-img:v1.0 bash
+   37  docker ps -a
+   38  docker images
+   39  docker run -it loksaieta/sa-javabuildenv-img:v1.0 bash
+   40  docker ps -a
+   41  docker commit ccb6df63d6fc loksaieta/sa-javabuildenv-img:v1.1
+   42  docker images
+   43  docker run -it loksaieta/sa-javabuildenv-img:v1.1 bash
+   44  docker ps -a
+   45  clear
+   46  docker ps -a
+   47  docker login -u loksaieta
+   48*
+   49  docker images
+   50  docker ps -a
+   51  clear
+   52  mkdir docker-contents
+   53  cd docker-contents/
+   54  vi Dockerfile
+   55  cat Dockerfile
+   56  pwd
+   57  ls
+   58  docker build -t loksaieta/sa-javabuildenv-img:v1.2 .
+   59  celar
+   60  clear
+   61  docker images
+   62  docker history ubuntu
+   63  docker history loksaieta/sa-javabuildenv-img:v1.2
+   64  docker images
+   65  docker ps -a
+   66  cat Dockerfile
+   67  docker images
+   68  docker ps -a
+   69  cd ..
+   70  history
+	
+Next ::	
+	Docker Volume :::
+
+########################
+Day 19 : 7th Jan. 2025
+########################	
+		
+	Docker Volume :::
+		
+	Container Orchestration :
+
+		- Overview of Docker Compose 
+		
+		- Overview of Docker Swarm 
+		
+		- Kubernetes
+	
+		
+	Docker Volume :::
+	
+		--> Used to maintain the persistant data.
+		
+		Types of Applications on Container Perspective :
+		
+			- Stateless Applications
+			
+			- Stateful Applications 
+		
+		3-Tier Application Architecture :::
+		
+		Micro-Service1 - User_Sign_in Service
+		
+			- Front-End	 			C1 
+			
+			- Application Layer 	C2 
+			
+			- DataBase Layer 		C3 
+			
+			
+		
+		docker volume list 
+		
+		docker volume create sa-vol1 				# Create a Docker Volume in Host Machine 
+		
+		docker volume inspect sa-vol1
+
+		docker run -it --mount source=sa-vol1,destination=/sa-vol1 ubuntu bash 
+		
+	
+	Container Orchestration :
+
+		- Overview of Docker Compose 
+		
+		- Overview of Docker Swarm 
+		
+		- Kubernetes	
+		
+	Overview of Docker Compose :::
+
+		3-Tier Application Architecture :::
+		
+		Micro-Service1 - User_Sign_in Service
+			- Front-End	 			C1 
+			
+			- Application Layer 	C2 
+			
+			- DataBase Layer 		C3 
+			
+			
+		Docker Compose :
+			- Is used to run Multiple Containers as a Service!
+			- Docker Compose is the default package of Container-Engine
+			- Docker Compose is an extension/plugins to Docker
+			- Create a manifest file *.yaml
+			
+			
+			
+//https://docs.docker.com/compose/install/linux/
+
+
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+mkdir -p $DOCKER_CONFIG/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.18.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+	
+
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+
+docker compose version
+// Docker Compose version v2.18.
+
+	-> Create a manifest/config file ==> Is written using yaml script.
+		vi docker-compose.yaml
+
+[root@ip-172-31-47-216 service1]# cat docker-compose.yaml
+
+version: '3'
+services:
+  webserv:
+    image: "tomcat:8.0"
+    ports:
+      - 8098:8080
+  dbserv:
+    image: "redis:alpine"
+
+docker compose version
+
+docker compose up			Start all the container as defined in docker-compose file
+
+docker compose down 		Stop all the container as defined in docker-compose file
+	
+	Container Orchestration Tool :
+	
+	Docker Swarm 
+	
+		Micro-Service1 - User_Sign_in Service  -  prod
+		
+			- Front-End	 			C1 
+			
+			- Application Layer 	C2 
+			
+			- DataBase Layer 		C3 	
+			
+			
+		Environments :::
+		
+			Non-Prod 				Prod Environment 
+			
+			Dev/QA/UAT 					Prod_Server1,2,3,4,5
+			
+
+			Micro-Service1 - User_Sign_in Service  -  prod
+			
+				- Front-End	 			C1.1,C1.2,C1.3 
+				
+				- Application Layer 	C2.1,C2.2,C2.3 
+				
+				- DataBase Layer 		C3.1,C3.2,C3.3  	
+				
+				
+			
+			Application Service :
+				
+				1000 Users   -- 30 Replicas of Container 
+				
+				10000 Users  -- 300 Replicas of Container 
+
+	
+		- Docker Swarm is one the Container Orchestration Tools.
+		- It is meant only for Docker Containers.
+		- Used to Ensure High Availability of Containers by creating Replicas of Containers.
+		- We cannot Do Auto-Scaling or Load Balancing!
+		
+		
+			Service :::
+			
+				Front_End			C1 / Replicas of C1 - 3 Replicas 
+				
+				Application_Layer	C2 
+				
+				Back_End (DataBase) C3 
+				
