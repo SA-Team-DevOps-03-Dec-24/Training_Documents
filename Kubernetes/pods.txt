@@ -1,0 +1,64 @@
+*******************************************************************
+# 1. 	core/v1
+
+# nginx-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+    tier: dev
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+
+
+*******************************************************************
+
+2. Create and display Pods
+
+# Create and display PODs
+
+kubectl create -f nginx-pod.yaml
+kubectl get pod
+kubectl get pod -o wide
+kubectl get pod nginx-pod -o yaml
+kubectl describe pod nginx-pod
+
+
+*******************************************************************
+
+3. Test & Delete
+
+# To get inside the pod
+kubectl exec -it nginx-pod bash
+
+exit 
+
+# Expose PODS using NodePort service
+
+kubectl expose pod nginx-pod --type=NodePort --port=80
+
+# Node-Port Range : 30000 - 32767 
+
+# Display Service and find NodePort
+kubectl describe svc nginx-pod
+
+# Open Web-browser and access webapge using
+
+http://<external-nodeip>:<nodeport>
+
+#eg.: http://15.207.116.47:32487
+
+
+
+# Delete pod & svc
+kubectl delete svc nginx-pod
+kubectl delete pod nginx-pod
+
+
+*******************************************************************
